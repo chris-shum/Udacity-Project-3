@@ -110,22 +110,30 @@ public class StockTaskService extends GcmTaskService{
 
     if (urlStringBuilder != null){
       urlString = urlStringBuilder.toString();
+
+//      Log.d("Bop", urlString);
       try{
+
         getResponse = fetchData(urlString);
+        Log.d("Bop", getResponse);
         result = GcmNetworkManager.RESULT_SUCCESS;
-        try {
-          ContentValues contentValues = new ContentValues();
-          // update ISCURRENT to 0 (false) so new data is current
-          if (isUpdate){
-            contentValues.put(QuoteColumns.ISCURRENT, 0);
-            mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
-                null, null);
+
+//        if(!getResponse.contains("Invalid JSON")) {
+          try {
+            ContentValues contentValues = new ContentValues();
+            // update ISCURRENT to 0 (false) so new data is current
+            if (isUpdate) {
+              contentValues.put(QuoteColumns.ISCURRENT, 0);
+              mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
+                      null, null);
+            }
+            mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
+                    Utils.quoteJsonToContentVals(getResponse));
+          } catch (RemoteException | OperationApplicationException e) {
+            Log.e(LOG_TAG, "Error applying batch insert", e);
           }
-          mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
-              Utils.quoteJsonToContentVals(getResponse));
-        }catch (RemoteException | OperationApplicationException e){
-          Log.e(LOG_TAG, "Error applying batch insert", e);
-        }
+
+
       } catch (IOException e){
         e.printStackTrace();
       }
