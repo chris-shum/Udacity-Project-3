@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.sam_chordas.android.stockhawk.R;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class GraphActivity extends Activity {
     ArrayList<Entry> priceArray;
     ArrayList<String> dateArray;
     LineChart lineChart;
-    ListView listView;
+//    ListView listView;
     ArrayAdapter<String> arrayAdapter;
 
     @Override
@@ -44,7 +45,7 @@ public class GraphActivity extends Activity {
         priceArray2 = new ArrayList<>();
         lineChart = (LineChart) findViewById(R.id.lineChart);
 
-        listView = (ListView) findViewById(R.id.test);
+//        listView = (ListView) findViewById(R.id.test);
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, priceArray2);
 
         StockAsyncTask stockAsyncTask = new StockAsyncTask();
@@ -62,12 +63,14 @@ public class GraphActivity extends Activity {
 //        dateArray.add("dbc");
 //        dateArray.add("ebc");
 
-        listView.setAdapter(arrayAdapter);
+//        listView.setAdapter(arrayAdapter);
 
 
-        LineDataSet dataSet = new LineDataSet(priceArray, "Price of stock");
+        LineDataSet dataSet = new LineDataSet(priceArray, "Closing price of stock");
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         LineData data = new LineData(dateArray, dataSet);
         lineChart.setData(data);
+        lineChart.setDescription(intent.getStringExtra("Key")+" performance over the year");
 
 
     }
@@ -81,7 +84,6 @@ public class GraphActivity extends Activity {
         @Override
         protected LineData doInBackground(String... params) {
             Stock stock = null;
-            priceArray2.add("Boop");
 
             Calendar from = Calendar.getInstance();
             Calendar to = Calendar.getInstance();
@@ -120,10 +122,9 @@ public class GraphActivity extends Activity {
         @Override
         protected void onPostExecute(LineData data) {
             super.onPostExecute(data);
-            priceArray2.add("Blah");
             lineChart.setData(data);
-
-            arrayAdapter.notifyDataSetChanged();
+//            arrayAdapter.notifyDataSetChanged();
+            Toast.makeText(getBaseContext(), "Click graph to see data.", Toast.LENGTH_SHORT).show();
         }
     }
 
