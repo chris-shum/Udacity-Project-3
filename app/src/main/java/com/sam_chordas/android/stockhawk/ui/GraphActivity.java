@@ -50,17 +50,17 @@ public class GraphActivity extends Activity {
         StockAsyncTask stockAsyncTask = new StockAsyncTask();
         stockAsyncTask.execute(intent.getStringExtra("Key"));
 
-        priceArray.add(new Entry(3F, 0));
-        priceArray.add(new Entry(10F, 1));
-        priceArray.add(new Entry(1F, 2));
-        priceArray.add(new Entry(22F, 3));
-        priceArray.add(new Entry(9F, 4));
+//        priceArray.add(new Entry(3F, 0));
+//        priceArray.add(new Entry(10F, 1));
+//        priceArray.add(new Entry(1F, 2));
+//        priceArray.add(new Entry(22F, 3));
+//        priceArray.add(new Entry(9F, 4));
 
-        dateArray.add("abc");
-        dateArray.add("bbc");
-        dateArray.add("cbc");
-        dateArray.add("dbc");
-        dateArray.add("ebc");
+//        dateArray.add("abc");
+//        dateArray.add("bbc");
+//        dateArray.add("cbc");
+//        dateArray.add("dbc");
+//        dateArray.add("ebc");
 
         listView.setAdapter(arrayAdapter);
 
@@ -81,13 +81,13 @@ public class GraphActivity extends Activity {
         @Override
         protected LineData doInBackground(String... params) {
             Stock stock = null;
+            priceArray2.add("Boop");
 
             Calendar from = Calendar.getInstance();
             Calendar to = Calendar.getInstance();
             from.add(Calendar.YEAR, -1); // from 1 years ago
             List<HistoricalQuote> historicalQuoteList = null;
 
-            priceArray2.add("blah");
 
             try {
                 stock = YahooFinance.get(params[0], from, to, Interval.WEEKLY);
@@ -96,35 +96,32 @@ public class GraphActivity extends Activity {
                 e.printStackTrace();
             }
             int j = historicalQuoteList.size()-1;
-            ArrayList<String> testString = new ArrayList<>();
-
-
             for (int i = 0; i < historicalQuoteList.size(); i++) {
-                String closing = historicalQuoteList.get(i).getClose().toString();
+                String closing = historicalQuoteList.get(j).getClose().toString();
                 Float closingPrice = Float.valueOf(closing);
                 long date = historicalQuoteList.get(j).getDate().getTimeInMillis();
                 String dateString = String.valueOf(date);
                 priceArray.add(new Entry(closingPrice, i));
+                dateArray.add(dateString);
 //                testString.add(dateString);
 //                Collections.reverse(testString);
 //                priceArray2.add(testString.get(j));
                 j--;
-                priceArray2.add(dateString);
 
 //                priceArray2.add(dateArray.get(i) + "Position" + j + " " + closingPrice);
 //                j++;
             }
 
-//            LineDataSet dataSet = new LineDataSet(priceArray, "Price of stock");
-//            LineData data = new LineData(dateArray, dataSet);
-            return null;
+            LineDataSet dataSet = new LineDataSet(priceArray, "Price of stock");
+            LineData data = new LineData(dateArray, dataSet);
+            return data;
         }
 
         @Override
         protected void onPostExecute(LineData data) {
             super.onPostExecute(data);
-//            lineChart.setData(data);
-            priceArray2.add("blah2");
+            priceArray2.add("Blah");
+            lineChart.setData(data);
 
             arrayAdapter.notifyDataSetChanged();
         }
