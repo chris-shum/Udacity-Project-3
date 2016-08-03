@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="YahooFinanceAPI-3.4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.yahoofinance-api/YahooFinanceAPI/3.4.0/ce886c0fe1c109bb286111af7c2a18956cedbcbc/YahooFinanceAPI-3.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.yahoofinance-api/YahooFinanceAPI/3.4.0/bcdbbb1f8d6fd660463056af887210332b24a634/YahooFinanceAPI-3.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
