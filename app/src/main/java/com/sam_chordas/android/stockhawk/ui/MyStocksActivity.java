@@ -155,7 +155,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             String periodicTag = "periodic";
 
             // create a periodic task to pull stocks once every hour after the app has been opened. This
-            // is so Widget data stays up to date.
+            // is so SimpleWidgetProvider data stays up to date.
             PeriodicTask periodicTask = new PeriodicTask.Builder()
                     .setService(StockTaskService.class)
                     .setPeriod(period)
