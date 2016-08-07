@@ -55,7 +55,12 @@
             android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
             android:exported="false" />
 
-        <activity android:name=".ui.GraphActivity"></activity>
+        <activity android:name=".ui.GraphActivity"
+            android:screenOrientation="landscape"
+            >
+
+
+        </activity>
     </application>
 
 </manifest>
