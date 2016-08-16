@@ -21,13 +21,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver android:name=".ui.SimpleWidgetProvider" >
+        <receiver android:name=".ui.WidgetProvider" >
             <intent-filter>
+
+                <!-- This widget provider receives broadcast with following action
+    name or simply onUpdate of AppWidgetProvider is called -->
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                android:resource="@xml/simple_widget_info" />
+            <!-- linking up xml file of appwidget-provider to AppWidgetProvider -->
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widgetinfo" />
         </receiver>
+
+        <service
+            android:name=".ui.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity
             android:name=".ui.MyStocksActivity"
