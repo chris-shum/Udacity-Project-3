@@ -8,5 +8,5 @@ Udacity's Project 3 Stock Hawk is to improve upon their version of [Stock Hawk](
 
 ##Screenshots:
  <img src="main.png" width="400">
- <img src="widget.png" width="400>
+ <img src="widget.png" width="400">
  <img src="graph.png">
