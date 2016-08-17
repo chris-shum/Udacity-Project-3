@@ -86,8 +86,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 new RecyclerViewItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
-                        //TODO:
-                        // do something on item click
                         mCursorAdapter.getCursor().moveToFirst();
                         mCursorAdapter.getCursor().move(position);
                         Intent intent = new Intent(MyStocksActivity.this, GraphActivity.class);
@@ -104,34 +102,26 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         // TODO: 8/2/16 figure out issue
 //        fab.attachToRecyclerView(recyclerView);
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isConnected) {
+            @Override public void onClick(View v) {
+                if (isConnected){
                     new MaterialDialog.Builder(mContext).title(R.string.symbol_search)
                             .content(R.string.content_test)
                             .inputType(InputType.TYPE_CLASS_TEXT)
                             .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
-                                @Override
-                                public void onInput(MaterialDialog dialog, CharSequence input) {
-                                    // On FAB click, receive user input. Make sure the stock doesn't already exist
-                                    // in the DB and proceed accordingly
+                                @Override public void onInput(MaterialDialog dialog, CharSequence input) {
                                     Cursor c = getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
-                                            new String[]{QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
-                                            new String[]{input.toString().toUpperCase()}, null);
+                                            new String[] { QuoteColumns.SYMBOL }, QuoteColumns.SYMBOL + "= ?",
+                                            new String[] { input.toString() }, null);
                                     if (c.getCount() != 0) {
                                         Toast toast =
-                                                Toast.makeText(MyStocksActivity.this, "This stock is already saved!",
+                                                Toast.makeText(MyStocksActivity.this, getString(R.string.stock_already_saved),
                                                         Toast.LENGTH_LONG);
                                         toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
                                         toast.show();
                                         return;
-
-                                        //something about identifying result and not adding to database
-
                                     } else {
-                                        // Add the stock to DB
                                         mServiceIntent.putExtra("tag", "add");
-                                        mServiceIntent.putExtra("symbol", input.toString().toUpperCase());
+                                        mServiceIntent.putExtra("symbol", input.toString());
                                         startService(mServiceIntent);
                                     }
                                 }
@@ -143,6 +133,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
             }
         });
+
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mCursorAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);

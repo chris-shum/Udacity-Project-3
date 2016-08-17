@@ -28,10 +28,6 @@ public class Utils {
         try {
             jsonObject = new JSONObject(JSON);
 
-
-//      if(!jsonObject.toString().contains("Invalid JSON")){
-
-
             if (jsonObject != null && jsonObject.length() != 0) {
                 jsonObject = jsonObject.getJSONObject("query");
                 int count = Integer.parseInt(jsonObject.getString("count"));
@@ -50,7 +46,6 @@ public class Utils {
                     }
                 }
             }
-//    }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "String to JSON failed: " + e);
         }
@@ -59,8 +54,6 @@ public class Utils {
 
     public static String truncateBidPrice(String bidPrice) {
 
-//    change
-//    if(bidPrice == null){
         bidPrice = String.format("%.2f", Float.parseFloat(bidPrice));
         return bidPrice;
     }
@@ -74,8 +67,6 @@ public class Utils {
         }
         change = change.substring(1, change.length());
 
-//    change
-//    if(change == null){
         double round = (double) Math.round(Double.parseDouble(change) * 100) / 100;
         change = String.format("%.2f", round);
         StringBuffer changeBuffer = new StringBuffer(change);
@@ -109,12 +100,7 @@ public class Utils {
         return builder.build();
     }
 
-//    static public boolean isNetworkAvailable(Context context){
-//        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 //
-//        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-//        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-//    }
 
 
 }

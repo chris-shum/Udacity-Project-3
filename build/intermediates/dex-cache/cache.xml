@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
-
-    <item
-        jar="/Users/ShowMe/Documents/uDacity/Project3/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="ad817fba9e1f66c86972dcafefdc4b198f9ac7d4">
-        <dex dex="/Users/ShowMe/Documents/uDacity/Project3/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_6fa145fa38b8e9bfbb70e974d639773864704ed7/classes.dex" />
-    </item>
-
-</items>
+<items version="2" />

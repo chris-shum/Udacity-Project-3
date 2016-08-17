@@ -29,7 +29,6 @@ public class GraphActivity extends Activity {
     ArrayList<Entry> priceArray;
     ArrayList<String> dateArray;
     LineChart lineChart;
-//    ListView listView;
     ArrayAdapter<String> arrayAdapter;
 
     @Override
@@ -38,33 +37,16 @@ public class GraphActivity extends Activity {
         setContentView(R.layout.activity_line_graph);
 
 
-        // TODO: 8/2/16 change listview into linechart
         Intent intent = getIntent();
         priceArray = new ArrayList<>();
         dateArray = new ArrayList<>();
         priceArray2 = new ArrayList<>();
         lineChart = (LineChart) findViewById(R.id.lineChart);
 
-//        listView = (ListView) findViewById(R.id.test);
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, priceArray2);
 
         StockAsyncTask stockAsyncTask = new StockAsyncTask();
         stockAsyncTask.execute(intent.getStringExtra("Key"));
-
-//        priceArray.add(new Entry(3F, 0));
-//        priceArray.add(new Entry(10F, 1));
-//        priceArray.add(new Entry(1F, 2));
-//        priceArray.add(new Entry(22F, 3));
-//        priceArray.add(new Entry(9F, 4));
-
-//        dateArray.add("abc");
-//        dateArray.add("bbc");
-//        dateArray.add("cbc");
-//        dateArray.add("dbc");
-//        dateArray.add("ebc");
-
-//        listView.setAdapter(arrayAdapter);
-
 
         LineDataSet dataSet = new LineDataSet(priceArray, "Closing price of stock");
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
@@ -105,13 +87,7 @@ public class GraphActivity extends Activity {
                 String dateString = String.valueOf(date);
                 priceArray.add(new Entry(closingPrice, i));
                 dateArray.add(dateString);
-//                testString.add(dateString);
-//                Collections.reverse(testString);
-//                priceArray2.add(testString.get(j));
                 j--;
-
-//                priceArray2.add(dateArray.get(i) + "Position" + j + " " + closingPrice);
-//                j++;
             }
 
             LineDataSet dataSet = new LineDataSet(priceArray, "Price of stock");
@@ -123,7 +99,6 @@ public class GraphActivity extends Activity {
         protected void onPostExecute(LineData data) {
             super.onPostExecute(data);
             lineChart.setData(data);
-//            arrayAdapter.notifyDataSetChanged();
             Toast.makeText(getBaseContext(), "Click graph to see data.", Toast.LENGTH_SHORT).show();
         }
     }

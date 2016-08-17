@@ -55,7 +55,6 @@ public class StockTaskService extends GcmTaskService{
     }
     StringBuilder urlStringBuilder = new StringBuilder();
     try{
-      // Base URL for the Yahoo query
       urlStringBuilder.append("https://query.yahooapis.com/v1/public/yql?q=");
       urlStringBuilder.append(URLEncoder.encode("select * from yahoo.finance.quotes where symbol "
         + "in (", "UTF-8"));
@@ -111,11 +110,9 @@ public class StockTaskService extends GcmTaskService{
     if (urlStringBuilder != null){
       urlString = urlStringBuilder.toString();
 
-      Log.d("Bop", urlString);
       try{
 
         getResponse = fetchData(urlString);
-        Log.d("Bop", getResponse);
         result = GcmNetworkManager.RESULT_SUCCESS;
 
 //        if(!getResponse.contains("Invalid JSON")) {
